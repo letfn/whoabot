@@ -1,0 +1,12 @@
+yq
+pre-commit
+watchdog
+watchdog[watchmedo]
+tox
+black
+isort
+mypy
+pyflakes
+pytest
+pytest-cov
+coverage

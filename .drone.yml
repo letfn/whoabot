@@ -1,0 +1,100 @@
+---
+kind: pipeline
+type: docker
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - make ci-test
+
+---
+kind: pipeline
+type: docker
+name: fmt
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - make ci-fmt
+
+---
+kind: pipeline
+type: docker
+name: lint
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - make ci-lint
+
+---
+kind: pipeline
+type: docker
+name: validate
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - circleci config validate
+  - drone lint
+
+---
+kind: pipeline
+type: docker
+name: watch
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - . /drone/venv/bin/activate && watchmedo shell-command --ignore-directories --drop --patterns='*.py' --recursive --command 'figlet woke; make ci-lint ci-test' src
+
+---
+kind: pipeline
+type: docker
+name: docs
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/ubuntu:python
+  commands:
+  - git submodule update --init themes
+  - rm -rf site/ugly && mkdir -p site
+  - "(cat config.yaml.template; echo; echo uglyurls: true) > config.yaml"
+  - hugo
+  - mv public site/ugly
+  - rm -rf site/pretty && mkdir -p site
+  - "(cat config.yaml.template; echo; echo uglyurls: false) > config.yaml"
+  - hugo
+  - mv public site/pretty
+
+...
