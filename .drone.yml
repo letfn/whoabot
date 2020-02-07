@@ -11,7 +11,7 @@ steps:
 - name: everything
   image: defn/ubuntu:python
   commands:
-  - make ci-test
+  - . /drone/venv/bin/activate && pytest -v --cov=main --cov-report=term-missing src
 
 ---
 kind: pipeline
@@ -26,7 +26,8 @@ steps:
 - name: everything
   image: defn/ubuntu:python
   commands:
-  - make ci-fmt
+  - . /drone/venv/bin/activate && isort -rc src
+  - . /drone/venv/bin/activate && black src
 
 ---
 kind: pipeline
@@ -41,7 +42,8 @@ steps:
 - name: everything
   image: defn/ubuntu:python
   commands:
-  - make ci-lint
+  - . /drone/venv/bin/activate && pyflakes src
+  - . /drone/venv/bin/activate && mypy src
 
 ---
 kind: pipeline
@@ -58,21 +60,6 @@ steps:
   commands:
   - circleci config validate
   - drone lint
-
----
-kind: pipeline
-type: docker
-name: watch
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: everything
-  image: defn/ubuntu:python
-  commands:
-  - . /drone/venv/bin/activate && watchmedo shell-command --ignore-directories --drop --patterns='*.py' --recursive --command 'figlet woke; make ci-lint ci-test' src
 
 ---
 kind: pipeline
