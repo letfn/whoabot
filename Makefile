@@ -8,47 +8,56 @@ check: # Check pre-requisites
 	which perl
 	which docker
 	which drone
-	which watchmedo
+	which fswatch
 
 bootstrap: # Bootstrap pre-requisites
-	python -m venv .venv
-	source .venv/bin/activate && pip install watchdog[watchmedo]
+	$(MAKE) bootstrap_$(shell uname -s)
+	$(MAKE) check
+
+bootstrap_Darwin:
+	brew install fswatch
+	curl -sSL -O https://github.com/drone/drone-cli/releases/download/v1.2.1/drone_darwin_amd64.tar.gz
+	tar xvfz drone_darwin_amd64.tar.gz
+	rm -f drone_darwin_amd64.tar.gz
+	chmod 755 drone
+	mv drone /usr/local/bin/
 
 all: # Reformat, Lint, Test, Validate
 	$(MAKE) fmt
 	$(MAKE) lint
 	$(MAKE) test
-	$(MAKE) validateo
+	$(MAKE) validate
+	$(MAKE) docs
 
 watch: # Watch for changes
-	source .venv/bin/activate && watchmedo shell-command --ignore-directories --drop --patterns='*.py' --recursive --command 'figlet woke; make lint test' src
+	@trap 'exit' INT; while true; do fswatch -0 src content | while read -d "" event; do case "$$event" in *.py) figlet woke; make lint test; break; ;; *.md) figlet docs; make docs; ;; esac; done; sleep 1; done
 
 docs: # Build docs with hugo
+	@echo
 	drone exec --pipeline docs
 
 test: # Test with pytest, coverage
+	@echo
 	drone exec --pipeline test
 
 fmt: # Format with isort, black
+	@echo
 	drone exec --pipeline fmt
 
 lint: # Lint with pyflakes, mypy
+	@echo
 	drone exec --pipeline lint
 
 validate: # Validate CI config
+	@echo
 	drone exec --pipeline validate
 
-base: # Build the Docker base for running drone pipelines
-	$(MAKE) ci-base
-	$(MAKE) ci-base-push
+build : # Build the Docker base for running drone pipelines
+	@echo
+	drone exec --pipeline build --secret-file .drone.secret
 
-ci-base:
-	docker build -t defn/ubuntu:python .
-	$(MAKE) ci-base-copy CID="$(shell docker create defn/ubuntu:python)"
+pull:
+	docker pull defn/python
 
-ci-base-push:
-	docker push defn/ubuntu:python
-
-ci-base-copy:
-	docker cp $(CID):/drone/src/requirements.txt . && docker cp $(CID):/drone/src/src/requirements.txt src/ && docker rm -f $(CID)
-
+warm:
+	docker run -v $(PWD)/.kaniko.cache:/cache gcr.io/kaniko-project/warmer:latest --verbosity=debug --image=python:3.8.1-buster

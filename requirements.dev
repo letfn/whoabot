@@ -1,7 +1,4 @@
 yq
-pre-commit
-watchdog
-watchdog[watchmedo]
 tox
 black
 isort

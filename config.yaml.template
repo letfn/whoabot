@@ -1,0 +1,15 @@
+title: python docs
+theme: drone-hugo-theme
+
+themesDir: /drone/themes
+
+baseurl: ""
+relativeURLs: true
+
+pygmentsCodefences: true
+pygmentsStyle: github
+
+disableKinds: ["taxonomy", "taxonomyTerm", "RSS", "sitemap", "robotsTXT", "404"]
+disableHugoGeneratorInject: true
+
+uglyurls: true

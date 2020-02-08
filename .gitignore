@@ -130,5 +130,11 @@ dmypy.json
 
 # Hugo
 public/
-site/
 /config.yaml
+gh-pages
+
+# Drone
+.drone.secret
+
+# Kaniko
+.kaniko.cache

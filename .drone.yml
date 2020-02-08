@@ -9,7 +9,7 @@ platform:
 
 steps:
 - name: everything
-  image: defn/ubuntu:python
+  image: defn/python
   commands:
   - . /drone/venv/bin/activate && pytest -v --cov=main --cov-report=term-missing src
 
@@ -23,11 +23,16 @@ platform:
   arch: amd64
 
 steps:
-- name: everything
-  image: defn/ubuntu:python
+- name: python
+  image: defn/python
   commands:
   - . /drone/venv/bin/activate && isort -rc src
   - . /drone/venv/bin/activate && black src
+
+- name: drone
+  image: defn/container
+  commands:
+  - drone fmt --save
 
 ---
 kind: pipeline
@@ -40,7 +45,7 @@ platform:
 
 steps:
 - name: everything
-  image: defn/ubuntu:python
+  image: defn/python
   commands:
   - . /drone/venv/bin/activate && pyflakes src
   - . /drone/venv/bin/activate && mypy src
@@ -55,10 +60,9 @@ platform:
   arch: amd64
 
 steps:
-- name: everything
-  image: defn/ubuntu:python
+- name: drone
+  image: defn/container
   commands:
-  - circleci config validate
   - drone lint
 
 ---
@@ -71,17 +75,40 @@ platform:
   arch: amd64
 
 steps:
-- name: everything
-  image: defn/ubuntu:python
+- name: local
+  image: defn/container
   commands:
-  - git submodule update --init themes
-  - rm -rf site/ugly && mkdir -p site
-  - "(cat config.yaml.template; echo; echo uglyurls: true) > config.yaml"
+  - cp config.yaml.template config.yaml
   - hugo
-  - mv public site/ugly
-  - rm -rf site/pretty && mkdir -p site
-  - "(cat config.yaml.template; echo; echo uglyurls: false) > config.yaml"
+  - rm -f config.yaml
+
+- name: gh-pages
+  image: defn/container
+  commands:
+  - "(cat config.yaml.template; echo; echo uglyurls: false; echo publishDir: gh-pages) > config.yaml"
   - hugo
-  - mv public site/pretty
+  - rm -f config.yaml
+
+---
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: defn/drone-kaniko
+  settings:
+    cache: true
+    password:
+      from_secret: docker_password
+    repo: defn/python
+    skip_tls_verify: true
+    tags: latest
+    username:
+      from_secret: docker_username
 
 ...
