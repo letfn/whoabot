@@ -3,6 +3,7 @@ FROM python:3.8.1-buster
 WORKDIR /drone/src
 
 RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y figlet rsync curl make git
 RUN apt-get install -y libyaml-dev
 
 RUN pip install --no-cache-dir --upgrade pip setuptools pip-tools python-dotenv

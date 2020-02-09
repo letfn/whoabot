@@ -128,13 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Secrets
+.drone.secret
+.drone.env
+.env
+
 # Hugo
-public/
 /config.yaml
 gh-pages
-
-# Drone
-.drone.secret
-
-# Kaniko
-.kaniko.cache
+public

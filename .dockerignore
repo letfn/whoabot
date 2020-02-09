@@ -1,3 +1,4 @@
-.env
+# Secrets
 .drone.secret
-.kaniko.cache
+.drone.env
+.env

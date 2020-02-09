@@ -1,7 +1,7 @@
 ---
 kind: pipeline
 type: docker
-name: test
+name: build
 
 platform:
   os: linux
@@ -9,9 +9,18 @@ platform:
 
 steps:
 - name: everything
-  image: defn/python
-  commands:
-  - . /drone/venv/bin/activate && pytest -v --cov=main --cov-report=term-missing src
+  image: letfn/drone-kaniko
+  settings:
+    cache: true
+    cache_repo: letfn/cache
+    dockerfile: alt/Dockerfile
+    password:
+      from_secret: docker_password
+    repo: letfn/python
+    skip_tls_verify: true
+    tag: latest
+    username:
+      from_secret: docker_username
 
 ---
 kind: pipeline
@@ -23,14 +32,8 @@ platform:
   arch: amd64
 
 steps:
-- name: python
-  image: defn/python
-  commands:
-  - . /drone/venv/bin/activate && isort -rc src
-  - . /drone/venv/bin/activate && black src
-
-- name: drone
-  image: defn/container
+- name: everything
+  image: letfn/container
   commands:
   - drone fmt --save
 
@@ -45,23 +48,7 @@ platform:
 
 steps:
 - name: everything
-  image: defn/python
-  commands:
-  - . /drone/venv/bin/activate && pyflakes src
-  - . /drone/venv/bin/activate && mypy src
-
----
-kind: pipeline
-type: docker
-name: validate
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: drone
-  image: defn/container
+  image: letfn/container
   commands:
   - drone lint
 
@@ -76,23 +63,33 @@ platform:
 
 steps:
 - name: local
-  image: defn/container
-  commands:
-  - cp config.yaml.template config.yaml
-  - hugo
-  - rm -f config.yaml
+  image: letfn/drone-hugo
 
 - name: gh-pages
-  image: defn/container
-  commands:
-  - "(cat config.yaml.template; echo; echo uglyurls: false; echo publishDir: gh-pages) > config.yaml"
-  - hugo
-  - rm -f config.yaml
+  image: letfn/drone-hugo
+  settings:
+    github_pages: true
 
 ---
 kind: pipeline
 type: docker
-name: build
+name: fmt-python
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: python
+  image: letfn/python
+  commands:
+  - . /drone/venv/bin/activate && isort -rc src
+  - . /drone/venv/bin/activate && black src
+
+---
+kind: pipeline
+type: docker
+name: lint-python
 
 platform:
   os: linux
@@ -100,15 +97,24 @@ platform:
 
 steps:
 - name: everything
-  image: defn/drone-kaniko
-  settings:
-    cache: true
-    password:
-      from_secret: docker_password
-    repo: defn/python
-    skip_tls_verify: true
-    tags: latest
-    username:
-      from_secret: docker_username
+  image: letfn/container
+  commands:
+  - . /drone/venv/bin/activate && pyflakes src
+  - . /drone/venv/bin/activate && mypy src
+
+---
+kind: pipeline
+type: docker
+name: test
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: letfn/python
+  commands:
+  - . /drone/venv/bin/activate && pytest -v --cov=main --cov-report=term-missing src
 
 ...
