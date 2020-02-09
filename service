@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main {
+  set -exfu
+
+  exec "$@"
+}
+
+main "$@"
