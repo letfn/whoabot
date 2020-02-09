@@ -97,7 +97,7 @@ platform:
 
 steps:
 - name: everything
-  image: letfn/container
+  image: letfn/python
   commands:
   - . /drone/venv/bin/activate && pyflakes src
   - . /drone/venv/bin/activate && mypy src
