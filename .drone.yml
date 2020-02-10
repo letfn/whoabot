@@ -10,6 +10,8 @@ platform:
 steps:
 - name: everything
   image: letfn/drone-kaniko
+  environment:
+    BENCHMARK_FILE: /drone/src/benchmark/build.txt
   settings:
     cache: true
     cache_repo: letfn/cache
