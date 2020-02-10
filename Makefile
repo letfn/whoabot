@@ -27,9 +27,14 @@ docs: # Build docs
 	@echo
 	drone exec --pipeline $@
 
+requirements: # Compile requirements
+	@echo
+	drone exec --pipeline $@
+
 build: # Build container
 	@echo
 	drone exec --pipeline $@ --secret-file .drone.secret
+	cat benchmark/build.json | jq -r 'to_entries | map(.value = (.value/1000000/1000 | tostring | split(".")[0] | tonumber))[] | "\(.value) \(.key)"' | sort -n | talign 1
 
 check: # Check pre-requisites
 	which make

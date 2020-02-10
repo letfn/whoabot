@@ -1,6 +1,22 @@
 ---
 kind: pipeline
 type: docker
+name: requirements
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: letfn/python
+  commands:
+  - pip-compile /drone/src/requirements.in -o /drone/src/src/requirements.txt
+  - pip-compile /drone/src/src/requirements.txt /drone/src/requirements.dev -o /drone/src/requirements.txt
+
+---
+kind: pipeline
+type: docker
 name: build
 
 platform:
@@ -10,8 +26,6 @@ platform:
 steps:
 - name: everything
   image: letfn/drone-kaniko
-  environment:
-    BENCHMARK_FILE: /drone/src/benchmark/build.txt
   settings:
     cache: true
     cache_repo: letfn/cache
@@ -23,6 +37,8 @@ steps:
     tag: latest
     username:
       from_secret: docker_username
+  environment:
+    BENCHMARK_FILE: /drone/src/benchmark/build.json
 
 ---
 kind: pipeline
