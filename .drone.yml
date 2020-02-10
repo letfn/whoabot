@@ -27,6 +27,7 @@ steps:
 - name: everything
   image: letfn/drone-kaniko
   settings:
+    args: --reproducible
     cache: true
     cache_repo: letfn/cache
     dockerfile: alt/Dockerfile
