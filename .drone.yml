@@ -27,7 +27,7 @@ steps:
 - name: everything
   image: letfn/drone-kaniko
   settings:
-    args: --verbosity=info
+    args: --verbosity=info --cache=false
     cache: true
     cache_repo: letfn/cache
     dockerfile: alt/Dockerfile
