@@ -2,7 +2,7 @@ FROM python:3.8.1-buster
 
 WORKDIR /drone/src
 
-RUN echo 1
+RUN echo 9
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y figlet rsync curl make git
@@ -10,12 +10,13 @@ RUN apt-get install -y libyaml-dev
 
 RUN pip install --no-cache-dir --upgrade pip setuptools pip-tools python-dotenv
 
-COPY requirements.in /drone/
-RUN mkdir -p /drone/src/src && pip-compile /drone/requirements.in -o /drone/src/src/requirements.txt
+RUN mkdir -p /app/src
+RUN python3 -m venv /app/venv
+RUN . /app/venv/bin/activate && pip install --no-cache-dir --upgrade pip setuptools pip-tools
 
-COPY requirements.dev /drone/
-RUN pip-compile /drone/src/src/requirements.txt /drone/requirements.dev -o /drone/src/requirements.txt
+COPY requirements.txt /app/src
+RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
+COPY src /app/src
 
-RUN python3 -m venv /drone/venv
-RUN . /drone/venv/bin/activate && pip install --no-cache-dir --upgrade pip setuptools pip-tools
-RUN . /drone/venv/bin/activate && pip install --no-cache-dir -r /drone/src/requirements.txt
+COPY service /service
+ENTRYPOINT [ "/service" ]
