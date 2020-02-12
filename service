@@ -3,7 +3,7 @@
 function main {
   set -exfu
 
-  exec "$@"
+  exec python "$@"
 }
 
 main "$@"
