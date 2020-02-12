@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 function main {
-  set -exfu
-
+  source ../venv/bin/activate
   exec python "$@"
 }
 
