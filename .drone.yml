@@ -1,52 +1,6 @@
 ---
 kind: pipeline
 type: docker
-name: requirements
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: everything
-  image: letfn/python
-  commands:
-  - if test -w . ; then pip-compile /drone/src/requirements.in -o requirements.in.txt; fi
-  - if test -w . ; then pip-compile /drone/src/requirements.in.txt requirements.dev -o requirements.txt; fi
-
----
-kind: pipeline
-type: docker
-name: build
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: everything
-  image: letfn/drone-kaniko
-  settings:
-    args: --destination=letfn/python
-    cache: true
-    cache_repo: defn/cache
-    dockerfile: alt/Dockerfile
-    password:
-      from_secret: docker_password
-    repo: letfn/python
-    skip_tls_verify: true
-    tag: latest
-    username:
-      from_secret: docker_username
-  environment:
-    BENCHMARK_FILE: /drone/src/benchmark/build.json
-
-depends_on:
-- test
-
----
-kind: pipeline
-type: docker
 name: fmt
 
 platform:
@@ -147,5 +101,51 @@ depends_on:
 - fmt-python
 - lint
 - lint-python
+
+---
+kind: pipeline
+type: docker
+name: requirements
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: letfn/python
+  commands:
+  - if test -w . ; then pip-compile /drone/src/requirements.in -o requirements.in.txt; fi
+  - if test -w . ; then pip-compile /drone/src/requirements.in.txt requirements.dev -o requirements.txt; fi
+
+---
+kind: pipeline
+type: docker
+name: build
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: everything
+  image: letfn/drone-kaniko
+  settings:
+    args: --destination=letfn/python
+    cache: true
+    cache_repo: defn/cache
+    dockerfile: alt/Dockerfile
+    password:
+      from_secret: docker_password
+    repo: letfn/python
+    skip_tls_verify: true
+    tag: latest
+    username:
+      from_secret: docker_username
+  environment:
+    BENCHMARK_FILE: /drone/src/benchmark/build.json
+
+depends_on:
+- test
 
 ...
