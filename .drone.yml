@@ -134,6 +134,9 @@ steps:
 - name: everything
   image: letfn/python
   commands:
+  - if [[ -w . ]]; then unset COV_CORE_DATAFILE; fi
   - . /app/venv/bin/activate && pytest -v --cov=main --cov-report=term-missing src
+  environment:
+    COV_CORE_DATAFILE: /tmp/.coverage
 
 ...
