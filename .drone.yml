@@ -11,8 +11,8 @@ steps:
 - name: everything
   image: letfn/python
   commands:
-  - if [[ -w . ]]; then pip-compile /drone/src/requirements.in -o requirements.in.txt; fi
-  - if [[ -w . ]]; then pip-compile /drone/src/requirements.in.txt requirements.dev -o requirements.txt; fi
+  - if test -w . ; then pip-compile /drone/src/requirements.in -o requirements.in.txt; fi
+  - if test -w . ; then pip-compile /drone/src/requirements.in.txt requirements.dev -o requirements.txt; fi
 
 ---
 kind: pipeline
