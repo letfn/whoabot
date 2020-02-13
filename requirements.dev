@@ -7,3 +7,5 @@ pyflakes
 pytest
 pytest-cov
 coverage
+cookiecutter
+httpie
