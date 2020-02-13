@@ -31,27 +31,6 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: docs
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: local
-  image: letfn/drone-hugo
-
-- name: gh-pages
-  image: letfn/drone-hugo
-  settings:
-    github_pages: true
-
-depends_on:
-- build
-
----
-kind: pipeline
-type: docker
 name: fmt-python
 
 platform:
@@ -147,5 +126,26 @@ steps:
 
 depends_on:
 - test
+
+---
+kind: pipeline
+type: docker
+name: docs
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: local
+  image: letfn/drone-hugo
+
+- name: gh-pages
+  image: letfn/drone-hugo
+  settings:
+    github_pages: true
+
+depends_on:
+- build
 
 ...
