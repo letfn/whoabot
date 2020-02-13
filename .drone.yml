@@ -41,6 +41,9 @@ steps:
   environment:
     BENCHMARK_FILE: /drone/src/benchmark/build.json
 
+depends_on:
+- test
+
 ---
 kind: pipeline
 type: docker
@@ -89,6 +92,9 @@ steps:
   settings:
     github_pages: true
 
+depends_on:
+- build
+
 ---
 kind: pipeline
 type: docker
@@ -135,5 +141,11 @@ steps:
   image: letfn/python
   commands:
   - . /app/venv/bin/activate && pytest -v src
+
+depends_on:
+- fmt
+- fmt-python
+- lint
+- lint-python
 
 ...
