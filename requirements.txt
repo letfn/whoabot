@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=/tmp/requirements.txt /drone/src/requirements.in.txt requirements.dev
 #
-appdirs==1.4.3            # via black, virtualenv
+appdirs==1.4.3            # via black
 argcomplete==1.11.1       # via yq
 arrow==0.15.5             # via jinja2-time
 attrs==19.3.0             # via black, pytest
@@ -15,8 +15,6 @@ chardet==3.0.4            # via binaryornot, requests
 click==7.0                # via black, cookiecutter
 cookiecutter==1.7.0
 coverage==5.0.3
-distlib==0.3.0            # via virtualenv
-filelock==3.0.12          # via tox, virtualenv
 future==0.18.2            # via cookiecutter
 httpie==2.0.0
 idna==2.8                 # via requests
@@ -27,11 +25,11 @@ markupsafe==1.1.1         # via jinja2
 more-itertools==8.2.0     # via pytest
 mypy-extensions==0.4.3    # via mypy
 mypy==0.761
-packaging==20.1           # via pytest, tox
+packaging==20.1           # via pytest
 pathspec==0.7.0           # via black
-pluggy==0.13.1            # via pytest, tox
+pluggy==0.13.1            # via pytest
 poyo==0.5.0               # via cookiecutter
-py==1.8.1                 # via pytest, tox
+py==1.8.1                 # via pytest
 pydantic==1.4
 pyflakes==2.1.1
 pygments==2.5.2           # via httpie
@@ -42,13 +40,11 @@ python-dateutil==2.8.1    # via arrow
 pyyaml==5.3               # via yq
 regex==2020.1.8           # via black
 requests==2.22.0          # via cookiecutter, httpie
-six==1.14.0               # via packaging, python-dateutil, tox, virtualenv
-toml==0.10.0              # via black, tox
-tox==3.14.4
+six==1.14.0               # via packaging, python-dateutil
+toml==0.10.0              # via black
 typed-ast==1.4.1          # via black, mypy
 typing-extensions==3.7.4.1  # via mypy
 urllib3==1.25.8           # via requests
-virtualenv==20.0.3        # via tox
 wcwidth==0.1.8            # via pytest
 whichcraft==0.6.1         # via cookiecutter
 xmltodict==0.12.0         # via yq

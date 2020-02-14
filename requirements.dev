@@ -1,5 +1,4 @@
 yq
-tox
 black
 isort
 mypy
