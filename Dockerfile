@@ -5,4 +5,5 @@ RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requireme
 COPY --chown=app:app src /app/src
 
 COPY service /service
+
 ENTRYPOINT [ "/tini", "--", "/service" ]

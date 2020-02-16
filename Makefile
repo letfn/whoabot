@@ -6,8 +6,8 @@ menu:
 all: # Run everything except build
 	$(MAKE) fmt
 	$(MAKE) lint
-	$(MAKE) test
 	$(MAKE) docs
+	$(MAKE) test
 
 fmt: # Format with isort, black
 	@echo
@@ -33,8 +33,7 @@ requirements: # Compile requirements
 
 build: # Build container
 	@echo
-	drone exec --pipeline $@ --secret-file .drone.secret
-	cat benchmark/build.json | jq -r 'to_entries | map(.value = (.value/1000000/1000 | tostring | split(".")[0] | tonumber))[] | "\(.value) \(.key)"' | sort -n | talign 1
+	drone exec --pipeline $@ --secret-file ../.drone.secret
 
 watch: # Watch for changes
 	@trap 'exit' INT; while true; do fswatch -0 src content | while read -d "" event; do case "$$event" in *.py) figlet woke; make lint test; break; ;; *.md) figlet docs; make docs; ;; esac; done; sleep 1; done
