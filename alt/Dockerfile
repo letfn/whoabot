@@ -2,8 +2,6 @@ FROM python:3.8.1-slim-buster
 
 ARG _TINI_VERSION=0.18.0
 
-WORKDIR /app/src
-
 USER root
 RUN apt-get update && apt-get upgrade -y
 
@@ -15,6 +13,7 @@ RUN pip install --no-cache-dir pip-tools python-dotenv
 
 USER app
 ENV HOME=/app/src
+WORKDIR /app/src
 
 RUN install -d -o app -g app /app && install -d -o app -g app /app/src
 COPY --chown=app:app requirements.txt /app/src
