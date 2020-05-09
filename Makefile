@@ -10,11 +10,11 @@ all: # Run everything except build
 	$(MAKE) lint
 	$(MAKE) docs
 
-fmt: # Format with isort, black
+fmt: # Format drone fmt
 	@echo
 	drone exec --pipeline $@
 
-lint: # Run pyflakes, mypy
+lint: # Run drone lint
 	@echo
 	drone exec --pipeline $@
 
@@ -22,10 +22,10 @@ docs: # Build docs
 	@echo
 	drone exec --pipeline $@
 
-requirements: # Compile requirements
-	@echo
-	drone exec --pipeline $@
-
 build: # Build container
 	@echo
 	drone exec --pipeline $@ --secret-file ../.drone.secret
+
+requirements: # Compile requirements
+	@echo
+	drone exec --pipeline $@
