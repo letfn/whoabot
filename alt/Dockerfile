@@ -5,7 +5,7 @@ RUN echo 1 > /tmp/.build
 ARG _TINI_VERSION=0.18.0
 
 USER root
-RUN apt-get update && apt-get upgrade -y
+RUN apt-get update && apt-get install -y sudo && apt-get upgrade -y
 
 RUN groupadd  -g 1000 app
 RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
@@ -25,8 +25,8 @@ USER root
 RUN . /app/venv/bin/activate && https -F -I -o /tini github.com/krallin/tini/releases/download/v${_TINI_VERSION}/tini-static-amd64 && chmod 755 /tini
 USER app
 
-COPY --chown=app:app src /app/src
-
 COPY service /service
+
+RUN sudo chown -R app:app /app/src
 
 ENTRYPOINT [ "/tini", "--", "/service" ]
