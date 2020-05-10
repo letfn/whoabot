@@ -16,7 +16,7 @@ ENV HOME=/app/src
 WORKDIR /app/src
 
 RUN install -d -o app -g app /app && install -d -o app -g app /app/src
-COPY --chown=app:app requirements.txt /app/src
+COPY --chown=app:app requirements.txt /app/src/requirements.txt
 RUN python3 -m venv /app/venv && . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
 
 USER root
