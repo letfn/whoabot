@@ -18,7 +18,11 @@ WORKDIR /app/src
 
 COPY --chown=app:app requirements.txt /app/src/requirements.txt
 RUN python3 -m venv /app/venv && . /app/venv/bin/activate && pip install --upgrade pip
-RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
+RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt && rm -f /app/src/requirements.txt
+
+USER root
+RUN chown -R -v app:app /app
+USER app
 
 COPY service /service
 
