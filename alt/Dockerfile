@@ -4,6 +4,7 @@ ARG _TINI_VERSION=0.18.0
 
 USER root
 RUN apt-get update && apt-get install -y tini && apt-get upgrade -y
+RUN ln -nfs /usr/bin/tini /tini
 
 RUN groupadd  -g 1000 app
 RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
