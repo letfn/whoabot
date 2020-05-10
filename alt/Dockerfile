@@ -1,5 +1,7 @@
 FROM python:3.8.2-slim-buster
 
+RUN echo 1 > /tmp/.build
+
 ARG _TINI_VERSION=0.18.0
 
 USER root
