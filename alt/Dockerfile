@@ -6,6 +6,7 @@ ARG _TINI_VERSION=0.18.0
 
 USER root
 RUN apt-get update && apt-get install -y sudo && apt-get upgrade -y
+RUN echo "app ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 RUN groupadd  -g 1000 app
 RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
