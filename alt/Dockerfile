@@ -10,7 +10,7 @@ RUN ls -lhd /usr/bin/sudo
 
 RUN groupadd  -g 1000 app
 RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
-RUN mkdir -p /app/src && chown -R app:app /app
+RUN mkdir -p /app/src && chown -R -v app:app /app
 
 RUN pip install --no-cache-dir pip-tools python-dotenv
 
@@ -28,6 +28,6 @@ USER app
 
 COPY service /service
 
-RUN sudo chown -R app:app /app/src
+RUN sudo chown -R -v app:app /app/src
 
 ENTRYPOINT [ "/tini", "--", "/service" ]
