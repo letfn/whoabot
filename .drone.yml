@@ -41,15 +41,9 @@ steps:
 - name: everything
   image: letfn/python
   commands:
-  - find /app -uid 0 -ls
   - . /app/venv/bin/activate
   - pip-compile /drone/src/requirements.in -o /tmp/requirements.txt
   - if test -w . ; then cp /tmp/requirements.txt requirements.txt; else diff requirements.txt /tmp/requirements.txt || true;  fi
-
-trigger:
-  instance:
-    exclude:
-    - cloud.drone.io
 
 ---
 kind: pipeline
@@ -91,11 +85,6 @@ platform:
 steps:
 - name: local
   image: letfn/drone-hugo
-
-- name: gh-pages
-  image: letfn/drone-hugo
-  settings:
-    github_pages: true
 
 depends_on:
 - build

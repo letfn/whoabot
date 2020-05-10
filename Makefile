@@ -22,11 +22,13 @@ docs: # Build docs
 	@echo
 	drone exec --pipeline $@
 
-requirements: # Compile requirements
+build: # Build container
 	@echo
 	drone exec --pipeline $@
 
-build: # Build container
+requirements:
 	@echo
-	drone exec --pipeline $@ --secret-file ../.drone.secret
+	drone exec --pipeline $@
 
+edit:
+	docker-compose -f docker-compose.docs.yml up
