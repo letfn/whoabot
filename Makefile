@@ -26,9 +26,9 @@ build: # Build container
 	@echo
 	drone exec --pipeline $@
 
+edit:
+	docker-compose -f docker-compose.docs.yml up
+
 requirements:
 	@echo
 	drone exec --pipeline $@
-
-edit:
-	docker-compose -f docker-compose.docs.yml up
