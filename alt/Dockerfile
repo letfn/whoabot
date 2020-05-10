@@ -17,10 +17,9 @@ ENV HOME=/app/src
 WORKDIR /app/src
 
 COPY --chown=app:app requirements.txt /app/src/requirements.txt
-RUN python3 -m venv /app/venv && . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
+RUN python3 -m venv /app/venv && . /app/venv/bin/activate && pip install --upgrade pip
+RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt
 
 COPY service /service
-
-RUN sudo chown -R -v app:app /app /service
 
 ENTRYPOINT [ "/tini", "--", "/service" ]
