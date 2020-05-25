@@ -3,7 +3,7 @@ FROM python:3.8.2-slim-buster
 ARG _TINI_VERSION=0.18.0
 
 USER root
-RUN apt-get update && apt-get install -y tini && apt-get upgrade -y
+RUN apt-get update && apt-get install -y tini make git && apt-get upgrade -y
 RUN ln -nfs /usr/bin/tini /tini
 
 RUN groupadd  -g 1000 app
