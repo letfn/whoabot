@@ -44,7 +44,6 @@ steps:
     args: --destination=letfn/python
     cache: true
     cache_repo: defn/cache
-    dockerfile: alt/Dockerfile
     password:
       from_secret: docker_password
     repo: letfn/python
