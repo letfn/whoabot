@@ -41,12 +41,12 @@ steps:
 - name: kaniko
   image: letfn/drone-kaniko
   settings:
-    args: --destination=letfn/python
+    args: --destination=registry.defn.sh/letfn/python
     cache: true
-    cache_repo: defn/cache
+    cache_repo: registry.defn.sh/defn/cache
     password:
       from_secret: docker_password
-    repo: letfn/python
+    repo: registry.defn.sh/letfn/python
     tag: latest
     username:
       from_secret: docker_username

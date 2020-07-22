@@ -1,6 +1,6 @@
-FROM python:3.8.2-slim-buster
+FROM python:3.8.5-slim-buster
 
-ARG _TINI_VERSION=0.18.0
+ARG _TINI_VERSION=0.19.0
 
 USER root
 RUN apt-get update && apt-get install -y tini make git curl rsync && apt-get upgrade -y
