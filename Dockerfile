@@ -1,7 +1,5 @@
 FROM python:3.8.5-slim-buster
 
-ARG _TINI_VERSION=0.19.0
-
 USER root
 RUN apt-get update && apt-get install -y tini make git curl rsync && apt-get upgrade -y
 RUN ln -nfs /usr/bin/tini /tini
@@ -20,8 +18,6 @@ COPY --chown=app:app requirements.txt /app/src/requirements.txt
 RUN python3 -m venv /app/venv && . /app/venv/bin/activate && pip install --upgrade pip
 RUN . /app/venv/bin/activate && pip install --no-cache-dir -r /app/src/requirements.txt && rm -f /app/src/requirements.txt
 
-USER root
-RUN chown -R -v app:app /app
 USER app
 
 COPY service /service
