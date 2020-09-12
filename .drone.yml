@@ -1,29 +1,19 @@
 ---
 kind: pipeline
 type: docker
-name: fmt
+name: style
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-- name: everything
+- name: fmt
   image: letfn/drone
   settings:
     task: fmt
 
----
-kind: pipeline
-type: docker
-name: lint
-
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-- name: everything
+- name: lint
   image: letfn/drone
   settings:
     task: lint
@@ -31,29 +21,22 @@ steps:
 ---
 kind: pipeline
 type: docker
-name: build
+name: test
 
 platform:
   os: linux
   arch: amd64
 
 steps:
-- name: kaniko
-  image: letfn/drone-kaniko
-  settings:
-    args: --destination=registry.defn.sh/letfn/python
-    cache: true
-    cache_repo: registry.defn.sh/defn/cache
-    password:
-      from_secret: docker_password
-    repo: registry.defn.sh/letfn/python
-    tag: latest
-    username:
-      from_secret: docker_username
-
-depends_on:
-- fmt
-- lint
+- name: local
+  image: letfn/python
+  commands:
+    - cd
+    - . /app/venv/bin/activate
+    - test "/app/venv/bin/python" = "$(which python)"
+    - test "/app/venv/bin/pip" = "$(which pip)"
+    - echo "$TEST_PY" | base64 -d > test.py
+    - pytest -v test.py
 
 ---
 kind: pipeline
@@ -67,33 +50,6 @@ platform:
 steps:
 - name: local
   image: letfn/drone-hugo
-
-depends_on:
-- build
-
----
-kind: secret
-name: docker_username
-
-get:
-  path: kv/data/drone/common
-  name: docker_username
-
----
-kind: secret
-name: docker_password
-
-get:
-  path: kv/data/drone/common
-  name: docker_password
-
----
-kind: secret
-name: github_token
-
-get:
-  path: kv/data/drone/common
-  name: github_token
 
 ---
 kind: pipeline

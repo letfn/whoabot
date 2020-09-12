@@ -1,17 +1,16 @@
 SHELL := /bin/bash
 
-.PHONY: cutout
-
 menu:
 	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
-cutout:
-	rm -rf cutout
-	cookiecutter --no-input --directory t/python gh:defn/cutouts \
-		organization="Cuong Chi Nghiem" \
-		project_name="letfn/python" \
-		repo="letfn/python" \
-		repo_cache="defn/cache"
-	rsync -ia cutout/. .
-	rm -rf cutout
-	git difftool --tool=vimdiff -y
+build: # Build letfn/python
+	@echo
+	docker build -t letfn/python .
+	$(MAKE) test
+
+push: # Push letfn/python
+	docker push letfn/python
+
+test: # Test letfn/python image
+	echo "TEST_PY=$(shell cat test.py | base64 -w 0)" > .drone.env
+	drone exec --env-file=.drone.env --pipeline test
