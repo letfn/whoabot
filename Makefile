@@ -5,6 +5,12 @@ SHELL := /bin/bash
 menu:
 	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
+build: # Build letfn/python
+	docker build -t letfn/python .
+	kiki style
+	kiki test
+	docker push letfn/python
+
 cutout:
 	rm -rf cutout
 	cookiecutter --no-input --directory t/python gh:defn/cutouts \
