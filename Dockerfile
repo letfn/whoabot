@@ -7,11 +7,11 @@ RUN ln -nfs /usr/bin/tini /tini
 RUN groupadd  -g 1000 app
 RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
 RUN mkdir -p /app/src && chown -R -v app:app /app /app/src
-
 RUN echo "app ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
 RUN groupadd  -g 1001 boot
 RUN useradd -u 1001 -d /app/src -s /bin/bash -g boot -M boot
+RUN echo "boot ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
 RUN pip install --no-cache-dir pip-tools
 
