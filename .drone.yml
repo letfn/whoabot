@@ -8,12 +8,12 @@ platform:
   arch: amd64
 
 steps:
-- name: fmt
+- name: drone fmt
   image: letfn/drone
   settings:
     task: fmt
 
-- name: lint
+- name: drone lint
   image: letfn/drone
   settings:
     task: lint
@@ -28,13 +28,16 @@ platform:
   arch: amd64
 
 steps:
-- name: local
+- name: letfn/python
   image: letfn/python
   commands:
     - cd
     - . /app/venv/bin/activate
     - test "/app/venv/bin/python" = "$(which python)"
     - test "/app/venv/bin/pip" = "$(which pip)"
+    - test "Python 3.8.5" = "$(python --version)"
+    - test "boot" = "$(whoami)"
+    - pip install python-dotenv
     - echo "$TEST_PY" | base64 -d > test.py
     - pytest -v test.py
 
@@ -66,6 +69,7 @@ steps:
   commands:
   - . /app/venv/bin/activate
   - pip-compile /drone/src/requirements.in -o /tmp/requirements.txt
-  - if test -w . ; then cp /tmp/requirements.txt requirements.txt; else diff requirements.txt /tmp/requirements.txt || true;  fi
+  - diff requirements.txt /tmp/requirements.txt || true
+  - if test -w . ; then cp /tmp/requirements.txt requirements.txt; fi
 
 ...
