@@ -35,8 +35,8 @@ steps:
     - . /app/venv/bin/activate
     - test "/app/venv/bin/python" = "$(which python)"
     - test "/app/venv/bin/pip" = "$(which pip)"
-    - test "Python 3.8.5" = "$(python --version)"
-    - test "boot" = "$(whoami)"
+    - test "Python 3.8.6" = "$(python --version)"
+    - test "app" = "$(whoami)"
     - pip install python-dotenv
     - echo "$TEST_PY" | base64 -d > test.py
     - pytest -v test.py

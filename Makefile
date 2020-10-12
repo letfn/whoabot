@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 test: # Test letfn/python image
-	echo "TEST_PY=$(shell cat test.py | base64 -w 0)" > .drone.env
+	echo "TEST_PY=$(shell cat test.py | (base64 -w 0 || base64) )" > .drone.env
 	drone exec --env-file=.drone.env --pipeline test
 
 menu:
@@ -10,6 +10,7 @@ menu:
 build: # Build letfn/python
 	@echo
 	docker build -t letfn/python .
+	docker push letfn/python
 	$(MAKE) test
 
 push: # Push letfn/python
