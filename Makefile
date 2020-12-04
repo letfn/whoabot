@@ -1,20 +1,18 @@
 SHELL := /bin/bash
 
-test: # Test letfn/python image
-	echo "TEST_PY=$(shell cat test.py | (base64 -w 0 || base64) )" > .drone.env
-	drone exec --env-file=.drone.env --pipeline test
-
 menu:
 	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
-build: # Build letfn/python
+build: # Build defn/python
 	@echo
-	docker build -t letfn/python .
-	docker push letfn/python
-	$(MAKE) test
+	podman build -t defn/python .
 
-push: # Push letfn/python
-	docker push letfn/python
+test: # Test defn/python image
+	echo "TEST_PY=$(shell cat test.py | (base64 -w 0 || base64) )" > .drone.env
+	drone exec --env-file=.drone.env --pipeline test
 
-bash: # Run bash shell with letfn/python
-	docker run --rm -ti --entrypoint bash letfn/python
+push: # Push defn/python
+	podman push defn/python
+
+bash: # Run bash shell with defn/python
+	podman run --rm -ti --entrypoint bash defn/python
