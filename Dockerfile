@@ -11,22 +11,11 @@ RUN echo "app ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
 RUN apt install -y python3-pip
 RUN apt install -y build-essential libssl-dev libffi-dev python3-dev python3-venv
-RUN pip3 install --no-cache-dir pip-tools
+RUN pip3 install --no-cache-dir --upgrade pip pip-tools pipx
 
 USER app
 ENV HOME=/app/src
 WORKDIR /app/src
 
-COPY --chown=app:app requirements.txt /tmp/requirements.txt
-RUN python3 -m venv /app/venv \
-    && . /app/venv/bin/activate \
-    && pip install --upgrade pip \
-    && . /app/venv/bin/activate \
-    && pip install --no-cache-dir -r /tmp/requirements.txt \
-    && rm -f /tmp/requirements.txt
-
-USER app
-
 COPY service /service
-
 ENTRYPOINT [ "/tini", "--", "/service" ]
