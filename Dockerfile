@@ -9,9 +9,13 @@ RUN useradd -u 1000 -d /app/src -s /bin/bash -g app -M app
 RUN mkdir -p /app/src && chown -R -v app:app /app /app/src
 RUN echo "app ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 
-RUN apt install -y python3-pip
-RUN apt install -y build-essential libssl-dev libffi-dev python3-dev python3-venv
+RUN apt install -y python3-pip python3-dev python3-venv
+RUN apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
+                   libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
+                   libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 RUN pip3 install --no-cache-dir --upgrade pip pip-tools pipx
+RUN pyenv install 3.8.6
+RUN pyenv install 3.9.1
 
 USER app
 ENV HOME=/app/src
