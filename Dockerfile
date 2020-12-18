@@ -1,5 +1,7 @@
 FROM ubuntu:20.04
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 USER root
 RUN apt-get update && apt-get install -y tini make git curl rsync sudo && apt-get upgrade -y
 RUN ln -nfs /usr/bin/tini /tini
@@ -14,8 +16,6 @@ RUN apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
                    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
                    libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 RUN pip3 install --no-cache-dir --upgrade pip pip-tools pipx
-RUN pyenv install 3.8.6
-RUN pyenv install 3.9.1
 
 USER app
 ENV HOME=/app/src
