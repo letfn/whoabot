@@ -15,7 +15,7 @@ RUN apt install -y python3-pip python3-dev python3-venv
 RUN apt install -y build-essential libssl-dev zlib1g-dev libbz2-dev \
                    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
                    libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
-RUN pip3 install --no-cache-dir --upgrade pip pip-tools pipx
+RUN python3 -m pip install --no-cache-dir --upgrade pip pip-tools pipx
 
 USER app
 ENV HOME=/app/src

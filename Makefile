@@ -5,14 +5,14 @@ menu:
 
 build: # Build defn/python
 	@echo
-	podman build -t defn/python .
+	docker build -t defn/python $(build) .
 
 test: # Test defn/python image
 	echo "TEST_PY=$(shell cat test.py | (base64 -w 0 || base64) )" > .drone.env
 	drone exec --env-file=.drone.env --pipeline test
 
 push: # Push defn/python
-	podman push defn/python
+	docker push defn/python
 
 bash: # Run bash shell with defn/python
-	podman run --rm -ti --entrypoint bash defn/python
+	docker run --rm -ti --entrypoint bash defn/python
