@@ -1,18 +1,19 @@
 SHELL := /bin/bash
 
+first = $(word 1, $(subst _, ,$@))
+second = $(word 2, $(subst _, ,$@))
+
 menu:
 	@perl -ne 'printf("%10s: %s\n","$$1","$$2") if m{^([\w+-]+):[^#]+#\s(.+)$$}' Makefile
 
-build: # Build defn/python
-	@echo
-	docker build -t defn/python $(build) .
+default:
+	git add -u .
+	-pc
+	git add -u .
+	pc
 
-test: # Test defn/python image
-	echo "TEST_PY=$(shell cat test.py | (base64 -w 0 || base64) )" > .drone.env
-	drone exec --env-file=.drone.env --pipeline test
+warm:
+	skopeo copy --all --dest-tls-verify=false "docker://$(shell cat params.yaml | yq -r .build_upstream_source)" "docker://$(shell cat params.yaml | yq -r .build_source)"
 
-push: # Push defn/python
-	docker push defn/python
-
-bash: # Run bash shell with defn/python
-	docker run --rm -ti --entrypoint bash defn/python
+build:
+	argo submit --log -f params.yaml argo.yaml

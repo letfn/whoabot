@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: katt-kaniko-build-
+spec:
+  entrypoint: build
+  arguments:
+    parameters:
+      - name: repo
+      - name: revision
+      - name: build_source
+      - name: build_destination
+      - name: build_dockerfile
+  templates:
+    - name: build
+      steps:
+        - - name: build
+            template: kaniko-build
+            arguments:
+              parameters:
+                - name: repo
+                  value: "{{workflow.parameters.repo}}"
+                - name: revision
+                  value: "{{workflow.parameters.revision}}"
+                - name: source
+                  value: "{{workflow.parameters.build_source}}"
+                - name: destination
+                  value: "{{workflow.parameters.build_destination}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.build_dockerfile}}"
+                - name: insecure_pull
+                  value: "--insecure-pull"
+    - name: kaniko-build
+      inputs:
+        parameters:
+          - name: repo
+          - name: revision
+          - name: source
+          - name: destination
+          - name: dockerfile
+          - name: insecure_pull
+            value: "--insecure"
+        artifacts:
+          - name: source
+            path: /src
+            git:
+              repo: "{{inputs.parameters.repo}}"
+              revision: "{{inputs.parameters.revision}}"
+      container:
+        image: gcr.io/kaniko-project/executor
+        args:
+          - "--context=/src"
+          - "--dockerfile={{inputs.parameters.dockerfile}}"
+          - "--destination={{inputs.parameters.destination}}"
+          - "--build-arg"
+          - "IMAGE={{inputs.parameters.source}}"
+          - "--insecure"
+          - "{{inputs.parameters.insecure_pull}}"
+  securityContext:
+    runAsNonRoot: false
