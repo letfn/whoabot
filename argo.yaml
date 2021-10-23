@@ -28,8 +28,6 @@ spec:
                   value: "{{workflow.parameters.build_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.build_dockerfile}}"
-                - name: insecure_pull
-                  value: "--insecure-pull"
     - name: kaniko-build
       inputs:
         parameters:
@@ -39,7 +37,7 @@ spec:
           - name: destination
           - name: dockerfile
           - name: insecure_pull
-            value: "--insecure"
+            value: "--insecure-pull"
         artifacts:
           - name: source
             path: /src
