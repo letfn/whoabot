@@ -14,6 +14,9 @@ spec:
       - name: cli_source
       - name: cli_destination
       - name: cli_dockerfile
+      - name: app_source
+      - name: app_destination
+      - name: app_dockerfile
   templates:
     - name: build
       steps:
@@ -31,6 +34,20 @@ spec:
                   value: "{{workflow.parameters.build_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.build_dockerfile}}"
+        - - name: build-app
+            template: kaniko-build
+            arguments:
+              parameters:
+                - name: repo
+                  value: "{{workflow.parameters.repo}}"
+                - name: revision
+                  value: "{{workflow.parameters.revision}}"
+                - name: source
+                  value: "{{workflow.parameters.app_source}}"
+                - name: destination
+                  value: "{{workflow.parameters.app_destination}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.app_dockerfile}}"
         - - name: build-cli
             template: kaniko-build
             arguments:
