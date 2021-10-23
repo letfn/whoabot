@@ -1,0 +1,6 @@
+ARG IMAGE
+
+FROM $IMAGE
+
+RUN pwd
+RUN id -a

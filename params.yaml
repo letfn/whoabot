@@ -5,3 +5,7 @@ build_dockerfile: Dockerfile
 build_upstream_source: "python:3.10.0"
 build_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
 build_destination: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0"
+
+cli_dockerfile: Dockerfile.cli
+cli_source: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0"
+cli_destination: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0-cli"

@@ -11,10 +11,13 @@ spec:
       - name: build_source
       - name: build_destination
       - name: build_dockerfile
+      - name: cli_source
+      - name: cli_destination
+      - name: cli_dockerfile
   templates:
     - name: build
       steps:
-        - - name: build
+        - - name: build-base
             template: kaniko-build
             arguments:
               parameters:
@@ -28,6 +31,20 @@ spec:
                   value: "{{workflow.parameters.build_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.build_dockerfile}}"
+        - - name: build-cli
+            template: kaniko-build
+            arguments:
+              parameters:
+                - name: repo
+                  value: "{{workflow.parameters.repo}}"
+                - name: revision
+                  value: "{{workflow.parameters.revision}}"
+                - name: source
+                  value: "{{workflow.parameters.cli_source}}"
+                - name: destination
+                  value: "{{workflow.parameters.cli_destination}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.cli_dockerfile}}"
     - name: kaniko-build
       inputs:
         parameters:
