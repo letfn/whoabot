@@ -12,3 +12,6 @@ RUN echo "app ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 USER app
 ENV HOME=/app
 WORKDIR /app
+
+RUN python -m venv /venv
+RUN . /venv/bin/activate && python -m pip install --no-cache-dir --upgrade pip
