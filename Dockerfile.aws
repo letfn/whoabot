@@ -2,5 +2,4 @@ ARG IMAGE
 
 FROM $IMAGE
 
-RUN find . -ls
 RUN ./run pipx install awscli
