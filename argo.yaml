@@ -3,7 +3,7 @@ kind: Workflow
 metadata:
   generateName: katt-kaniko-build-
 spec:
-  entrypoint: build
+  entrypoint: build-base
   arguments:
     parameters:
       - name: repo
