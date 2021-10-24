@@ -3,7 +3,7 @@ kind: Workflow
 metadata:
   generateName: katt-kaniko-build-
 spec:
-  entrypoint: build-base
+  entrypoint: build
   arguments:
     parameters:
       - name: repo
@@ -15,7 +15,7 @@ spec:
       - name: app_destination
       - name: app_dockerfile
   templates:
-    - name: build-base
+    - name: build
       steps:
         - - name: build-base
             template: kaniko-build
@@ -45,7 +45,7 @@ spec:
                   value: "{{workflow.parameters.app_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.app_dockerfile}}"
-   - name: kaniko-build
+    - name: kaniko-build
       inputs:
         parameters:
           - name: repo
