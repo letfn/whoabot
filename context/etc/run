@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-source .bashrc
+if [[ -z "${HOME:-}" ]]; then
+  export HOME="/app"
+  export USER="app"
+fi
+
+source "${HOME}/.bashrc"
 
 if [[ -f /venv/bin/activate ]]; then source /venv/bin/activate; fi
 
