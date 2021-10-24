@@ -21,6 +21,6 @@ USER app
 ENV HOME=/app
 WORKDIR /app
 
-COPY --chown:=app:app --from=git /.asdf .asdf
+COPY --chown=app:app --from=git /.asdf .asdf
 
 COPY --chown=app:app etc/.bashrc etc/run .
