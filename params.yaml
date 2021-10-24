@@ -1,23 +1,23 @@
-repo: https://github.com/letfn/foundation
+repo: https://github.com/letfn/whoabot
 revision: master
 
 build_dockerfile: Dockerfile
 build_upstream_source: "python:3.10.0"
 build_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
-build_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
+build_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
 
 app_dockerfile: Dockerfile.app
-app_source: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
-app_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:app"
+app_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
+app_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:app"
 
 aws_dockerfile: Dockerfile.aws
-aws_source: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
-aws_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:aws"
+aws_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
+aws_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:aws"
 
 terraform_dockerfile: Dockerfile.terraform
-terraform_source: "k3d-hub.defn.ooo:5000/letfn/foundation:aws"
-terraform_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:terraform"
+terraform_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:aws"
+terraform_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:terraform"
 
 cdktf_dockerfile: Dockerfile.cdktf
-cdktf_source: "k3d-hub.defn.ooo:5000/letfn/foundation:terraform"
-cdktf_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:cdktf"
+cdktf_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:terraform"
+cdktf_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:cdktf"
