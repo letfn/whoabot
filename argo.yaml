@@ -17,6 +17,9 @@ spec:
       - name: aws_source
       - name: aws_destination
       - name: aws_dockerfile
+      - name: terraform_source
+      - name: terraform_destination
+      - name: terraform_dockerfile
   templates:
     - name: build
       steps:
@@ -48,7 +51,7 @@ spec:
                   value: "{{workflow.parameters.app_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.app_dockerfile}}"
-          - name: build-aws
+        - - name: build-aws
             template: kaniko-build
             arguments:
               parameters:
@@ -62,6 +65,20 @@ spec:
                   value: "{{workflow.parameters.aws_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.aws_dockerfile}}"
+        - - name: build-terraform
+            template: kaniko-build
+            arguments:
+              parameters:
+                - name: repo
+                  value: "{{workflow.parameters.repo}}"
+                - name: revision
+                  value: "{{workflow.parameters.revision}}"
+                - name: source
+                  value: "{{workflow.parameters.terraform_source}}"
+                - name: destination
+                  value: "{{workflow.parameters.terraform_destination}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.terraform_dockerfile}}"
     - name: kaniko-build
       inputs:
         parameters:

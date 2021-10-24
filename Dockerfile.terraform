@@ -2,7 +2,8 @@ ARG IMAGE
 
 FROM $IMAGE
 
-RUN python -m venv /venv
-RUN . /venv/bin/activate && python -m pip install --no-cache-dir --upgrade pip
+RUN ./run asdf plugin-add terraform
 
-RUN git clone -b release-v0.9.0 https://github.com/asdf-vm/asdf.git .asdf
+COPY --chown=app:app etc/tool-versions-terraform .tool-versions
+
+RUN ./run asdf install
