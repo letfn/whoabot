@@ -2,4 +2,6 @@ ARG IMAGE
 
 FROM $IMAGE
 
+COPY --chown=app:app etc/.bashrc etc/run .
+
 RUN ./run pipx install awscli

@@ -2,12 +2,16 @@ ARG IMAGE
 
 FROM $IMAGE
 
+COPY --chown=app:app etc/.bashrc etc/run .
+
 RUN ./run asdf plugin-add nodejs
 
 COPY --chown=app:app etc/tool-versions.cdktf .tool-versions
 
 RUN ./run asdf install
 
+COPY --chown=app:app etc/bashrc .bashrc
+COPY --chown=app:app etc/run run
 COPY --chown=app:app cdktf/package.json .
 
 RUN ./run npm install -g npm && ./run npm install
