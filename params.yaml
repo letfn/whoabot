@@ -8,4 +8,4 @@ build_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
 
 app_dockerfile: Dockerfile.app
 app_source: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
-app_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:app""
+app_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:app"
