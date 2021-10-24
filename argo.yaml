@@ -15,7 +15,7 @@ spec:
       - name: app_destination
       - name: app_dockerfile
   templates:
-    - name: build
+    - name: build-base
       steps:
         - - name: build-base
             template: kaniko-build
