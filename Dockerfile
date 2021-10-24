@@ -12,3 +12,5 @@ RUN echo "app ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
 USER app
 ENV HOME=/app
 WORKDIR /app
+
+COPY etc/bashrc .bashrc
