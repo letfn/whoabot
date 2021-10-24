@@ -4,13 +4,11 @@ FROM $IMAGE
 
 RUN python -m pip install --no-cache-dir --upgrade pip pip-tools pipx
 
-RUN (apt update -y && apt install -y git) || (apk update && apk add git)
+RUN (apt update -y && apt install -y git) || (apk update && apk add git bash)
 
-RUN cat /etc/passwd
 RUN groupadd -g 1000 app || addgroup -g 1000 app
-RUN cat /etc/passwd
-RUN useradd -u 1000 -d /app -s /bin/bash -g app -M app || adduser -u 1000 -h /app -s /bin/bash -g app app
-RUN cat /etc/passwd
+RUN useradd -u 1000 -d /app -s /bin/bash -g app -M app || adduser -u 1000 -h /app -s /bin/bash -g app app || true
+RUN cat /etc/passwd /etc/group
 RUN install -d -m 0700 -o app -g app /app /venv
 
 USER app
