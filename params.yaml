@@ -10,6 +10,10 @@ app_dockerfile: Dockerfile.app
 app_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 app_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:app"
 
+ci_dockerfile: Dockerfile.ci
+ci_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:app"
+ci_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:ci"
+
 aws_dockerfile: Dockerfile.aws
 aws_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 aws_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:aws"

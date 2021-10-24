@@ -1,0 +1,16 @@
+ARG IMAGE
+
+FROM $IMAGE
+
+COPY --chown=app:app etc/.bashrc etc/run .
+
+RUN ./run pipx install black
+RUN ./run pipx install pylint
+RUN ./run pipx install flake8
+RUN ./run pipx install isort
+RUN ./run pipx install pyinfra
+RUN ./run pipx install testinfra
+RUN ./run pipx install yq
+RUN ./run pipx install cookiecutter
+RUN ./run pipx install pre-commit
+RUN ./run pipx install --pip-args "httpie-aws-authv4" httpie
