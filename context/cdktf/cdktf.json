@@ -1,6 +1,6 @@
 {
   "language": "python",
-  "app": "python3 ./main.py",
+  "app": "python ./main.py",
   "codeMakerOutput": "imports",
   "terraformProviders": ["aws@~> 3.63.0"],
   "terraformModules": [],
