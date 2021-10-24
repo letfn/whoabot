@@ -1,11 +1,11 @@
-repo: https://github.com/letfn/python
+repo: https://github.com/letfn/foundation
 revision: master
 
 build_dockerfile: Dockerfile
 build_upstream_source: "python:3.10.0"
 build_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
-build_destination: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0"
+build_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
 
 app_dockerfile: Dockerfile.app
-app_source: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0"
-app_destination: "k3d-hub.defn.ooo:5000/letfn/python:3.10.0-app"
+app_source: "k3d-hub.defn.ooo:5000/letfn/foundation:build"
+app_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:app""
