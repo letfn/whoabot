@@ -3,7 +3,6 @@ kind: Workflow
 metadata:
   generateName: katt-kaniko-build-
 spec:
-  entrypoint: build
   arguments:
     parameters:
       - name: repo
@@ -24,7 +23,7 @@ spec:
       - name: cdktf_destination
       - name: cdktf_dockerfile
   templates:
-    - name: build
+    - name: build-base
       steps:
         - - name: build-base
             template: kaniko-build
@@ -40,6 +39,8 @@ spec:
                   value: "{{workflow.parameters.build_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.build_dockerfile}}"
+    - name: build-app
+      steps:
         - - name: build-app
             template: kaniko-build
             arguments:
@@ -54,6 +55,8 @@ spec:
                   value: "{{workflow.parameters.app_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.app_dockerfile}}"
+    - name: build-aws
+      steps:
         - - name: build-aws
             template: kaniko-build
             arguments:
@@ -68,6 +71,8 @@ spec:
                   value: "{{workflow.parameters.aws_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.aws_dockerfile}}"
+    - name: build-terraform
+      steps:
         - - name: build-terraform
             template: kaniko-build
             arguments:
@@ -82,6 +87,8 @@ spec:
                   value: "{{workflow.parameters.terraform_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.terraform_dockerfile}}"
+    - name: build-cdktf
+      steps:
         - - name: build-cdktf
             template: kaniko-build
             arguments:
