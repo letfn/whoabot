@@ -1,7 +1,5 @@
 SHELL := /bin/bash
 
-variant ?= -slim
-
 first = $(word 1, $(subst _, ,$@))
 second = $(word 2, $(subst _, ,$@))
 
