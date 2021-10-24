@@ -2,6 +2,10 @@ ARG IMAGE
 
 FROM $IMAGE
 
+RUN pwd
+RUN find .asdf -ls
+RUN pwd
+
 RUN ./run .asdf/bin/asdf plugin-add terraform
 
 COPY --chown=app:app etc/tool-versions.terraform .tool-versions
