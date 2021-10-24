@@ -1,0 +1,6 @@
+$ cat package.json
+{
+  "dependencies": {
+    "cdktf-cli": "^0.7.0"
+  }
+}
