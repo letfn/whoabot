@@ -13,5 +13,5 @@ USER app
 ENV HOME=/app
 WORKDIR /app
 
-COPY etc/bashrc .bashrc
-COPY etc/run run
+COPY --chown=app:app etc/bashrc .bashrc
+COPY --chown=app:app etc/run run
