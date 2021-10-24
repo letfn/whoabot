@@ -98,13 +98,12 @@ spec:
       container:
         image: gcr.io/kaniko-project/executor
         args:
-          - "--context=/src"
+          - "--context=/src/context"
           - "--dockerfile={{inputs.parameters.dockerfile}}"
           - "--destination={{inputs.parameters.destination}}"
           - "--build-arg"
           - "IMAGE={{inputs.parameters.source}}"
           - "--cache"
-          - "--snapshotMode=redo"
           - "--insecure"
           - "{{inputs.parameters.insecure_pull}}"
   securityContext:
