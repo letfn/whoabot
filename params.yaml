@@ -1,17 +1,17 @@
 repo: https://github.com/letfn/whoabot
 revision: master
 
-build_dockerfile: Dockerfile.build
-build_upstream_source: "python:3.10.0"
-build_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
-build_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
+base_dockerfile: Dockerfile.base
+base_upstream_source: "python:3.10.0"
+base_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
+base_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 
 app_dockerfile: Dockerfile.app
-app_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
+app_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 app_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:app"
 
 aws_dockerfile: Dockerfile.aws
-aws_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
+aws_source: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 aws_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:aws"
 
 terraform_dockerfile: Dockerfile.terraform
