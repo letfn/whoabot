@@ -1,7 +1,7 @@
 repo: https://github.com/letfn/whoabot
 revision: master
 
-build_dockerfile: Dockerfile
+build_dockerfile: Dockerfile.build
 build_upstream_source: "python:3.10.0"
 build_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
 build_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:build"
