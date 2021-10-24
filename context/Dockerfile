@@ -13,5 +13,7 @@ USER app
 ENV HOME=/app
 WORKDIR /app
 
+RUN git clone -b release-v0.9.0 https://github.com/asdf-vm/asdf.git .asdf
+
 COPY --chown=app:app etc/bashrc .bashrc
 COPY --chown=app:app etc/run run
