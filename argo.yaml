@@ -7,6 +7,7 @@ spec:
     parameters:
       - name: repo
       - name: revision
+      - name: variant
       - name: base_source
       - name: base_destination
       - name: base_dockerfile
@@ -37,9 +38,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.base_source}}"
+                  value: "{{workflow.parameters.base_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.base_destination}}"
+                  value: "{{workflow.parameters.base_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.base_dockerfile}}"
     - name: build-app
@@ -53,9 +54,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.app_source}}"
+                  value: "{{workflow.parameters.app_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.app_destination}}"
+                  value: "{{workflow.parameters.app_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.app_dockerfile}}"
     - name: build-ci
@@ -69,9 +70,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.ci_source}}"
+                  value: "{{workflow.parameters.ci_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.ci_destination}}"
+                  value: "{{workflow.parameters.ci_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.ci_dockerfile}}"
     - name: build-aws
@@ -85,9 +86,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.aws_source}}"
+                  value: "{{workflow.parameters.aws_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.aws_destination}}"
+                  value: "{{workflow.parameters.aws_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.aws_dockerfile}}"
     - name: build-terraform
@@ -101,9 +102,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.terraform_source}}"
+                  value: "{{workflow.parameters.terraform_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.terraform_destination}}"
+                  value: "{{workflow.parameters.terraform_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.terraform_dockerfile}}"
     - name: build-cdktf
@@ -117,9 +118,9 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.cdktf_source}}"
+                  value: "{{workflow.parameters.cdktf_source}}{{workflow.parameters.variant}}"
                 - name: destination
-                  value: "{{workflow.parameters.cdktf_destination}}"
+                  value: "{{workflow.parameters.cdktf_destination}}{{workflow.parameters.variant}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.cdktf_dockerfile}}"
     - name: kaniko-build
@@ -143,9 +144,9 @@ spec:
         args:
           - "--context=/src/context"
           - "--dockerfile={{inputs.parameters.dockerfile}}"
-          - "--destination={{inputs.parameters.destination}}"
+          - "--destination={{inputs.parameters.destination}}{{workflow.parameters.variant}}"
           - "--build-arg"
-          - "IMAGE={{inputs.parameters.source}}"
+          - "IMAGE={{inputs.parameters.source}}{{workflow.parameters.variant}}"
           - "--reproducible"
           - "--cache"
           - "--cache-copy-layers"

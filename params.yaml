@@ -2,8 +2,8 @@ repo: https://github.com/letfn/whoabot
 revision: master
 
 base_dockerfile: Dockerfile.base
-base_upstream_source: "python:3.10.0-slim"
-base_source: "k3d-hub.defn.ooo:5000/python_3.10.0-slim"
+base_upstream_source: "python:3.10.0"
+base_source: "k3d-hub.defn.ooo:5000/python_3.10.0"
 base_destination: "k3d-hub.defn.ooo:5000/letfn/whoabot:base"
 
 app_dockerfile: Dockerfile.app
