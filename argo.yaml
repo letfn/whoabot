@@ -104,6 +104,7 @@ spec:
           - "--build-arg"
           - "IMAGE={{inputs.parameters.source}}"
           - "--cache"
+          - "--snapshotMode=redo"
           - "--insecure"
           - "{{inputs.parameters.insecure_pull}}"
   securityContext:
