@@ -17,3 +17,7 @@ aws_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:aws"
 terraform_dockerfile: Dockerfile.terraform
 terraform_source: "k3d-hub.defn.ooo:5000/letfn/foundation:aws"
 terraform_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:terraform"
+
+cdktf_dockerfile: Dockerfile.cdktf
+cdktf_source: "k3d-hub.defn.ooo:5000/letfn/foundation:terraform"
+cdktf_destination: "k3d-hub.defn.ooo:5000/letfn/foundation:cdktf"

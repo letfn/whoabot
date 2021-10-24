@@ -20,6 +20,9 @@ spec:
       - name: terraform_source
       - name: terraform_destination
       - name: terraform_dockerfile
+      - name: cdktf_source
+      - name: cdktf_destination
+      - name: cdktf_dockerfile
   templates:
     - name: build
       steps:
@@ -79,6 +82,20 @@ spec:
                   value: "{{workflow.parameters.terraform_destination}}"
                 - name: dockerfile
                   value: "{{workflow.parameters.terraform_dockerfile}}"
+        - - name: build-cdktf
+            template: kaniko-build
+            arguments:
+              parameters:
+                - name: repo
+                  value: "{{workflow.parameters.repo}}"
+                - name: revision
+                  value: "{{workflow.parameters.revision}}"
+                - name: source
+                  value: "{{workflow.parameters.cdktf_source}}"
+                - name: destination
+                  value: "{{workflow.parameters.cdktf_destination}}"
+                - name: dockerfile
+                  value: "{{workflow.parameters.cdktf_dockerfile}}"
     - name: kaniko-build
       inputs:
         parameters:

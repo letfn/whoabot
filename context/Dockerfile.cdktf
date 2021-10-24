@@ -1,0 +1,9 @@
+ARG IMAGE
+
+FROM $IMAGE
+
+RUN ./run asdf plugin-add nodejs
+
+COPY --chown=app:app etc/tool-versions.cdktf .tool-versions
+
+RUN ./run asdf install
