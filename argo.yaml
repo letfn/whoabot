@@ -7,9 +7,9 @@ spec:
     parameters:
       - name: repo
       - name: revision
-      - name: build_source
-      - name: build_destination
-      - name: build_dockerfile
+      - name: base_source
+      - name: base_destination
+      - name: base_dockerfile
       - name: app_source
       - name: app_destination
       - name: app_dockerfile
@@ -34,11 +34,11 @@ spec:
                 - name: revision
                   value: "{{workflow.parameters.revision}}"
                 - name: source
-                  value: "{{workflow.parameters.build_source}}"
+                  value: "{{workflow.parameters.base_source}}"
                 - name: destination
-                  value: "{{workflow.parameters.build_destination}}"
+                  value: "{{workflow.parameters.base_destination}}"
                 - name: dockerfile
-                  value: "{{workflow.parameters.build_dockerfile}}"
+                  value: "{{workflow.parameters.base_dockerfile}}"
     - name: build-app
       steps:
         - - name: build-app
