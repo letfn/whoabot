@@ -14,3 +14,4 @@ ENV HOME=/app
 WORKDIR /app
 
 COPY etc/bashrc .bashrc
+COPY etc/run run

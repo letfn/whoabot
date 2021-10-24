@@ -2,4 +2,4 @@ ARG IMAGE
 
 FROM $IMAGE
 
-RUN . .bashrc && pipx install awscli
+RUN ./run pipx install awscli
