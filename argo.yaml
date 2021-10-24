@@ -103,8 +103,8 @@ spec:
           - "--destination={{inputs.parameters.destination}}"
           - "--build-arg"
           - "IMAGE={{inputs.parameters.source}}"
-          - "--reproducible"
           - "--cache"
+          - "--cache-copy-layers"
           - "--insecure"
           - "{{inputs.parameters.insecure_pull}}"
   securityContext:
