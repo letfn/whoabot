@@ -8,8 +8,10 @@ COPY --chown=app:app etc/tool-versions.cdktf .tool-versions
 
 RUN ./run asdf install
 
-COPY --chown=app:app cdktf/package.json cdktf/requirements.txt .
+COPY --chown=app:app cdktf/package.json cdktf/requirements.txt cdktf/cdktf.json ..
 
 RUN ./run npm install -g npm && ./run npm install
 
 RUN ./run python -m pip install -r requirements.txt
+
+RUN ./run ./node_modules/.bin/cdktf get
