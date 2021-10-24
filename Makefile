@@ -19,7 +19,7 @@ warm:
 
 build:
 	$(MAKE) build_base
-	$(MAKE) build_app
+	$(MAKE) build_{app,ci}
 	$(MAKE) build_{aws,terraform,cdktf}
 
 build_%:
