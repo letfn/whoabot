@@ -2,7 +2,7 @@ ARG IMAGE
 
 FROM $IMAGE
 
-RUN ./run asdf plugin-add terraform
+RUN ./run .asdf/bin/asdf plugin-add terraform
 
 COPY --chown=app:app etc/tool-versions.terraform .tool-versions
 
