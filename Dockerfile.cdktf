@@ -13,15 +13,12 @@ RUN ./run asdf install
 COPY --chown=app:app cdktf/package.json .
 
 RUN ./run npm install -g npm && ./run npm install
+RUN cd node_modules/cdktf-cli/ && ../../run npm install @types/node@14.17.27
 
 COPY --chown=app:app cdktf/requirements.txt .
 
 RUN ./run python -m pip install -r requirements.txt
 
 COPY --chown=app:app cdktf/cdktf.json .
-
-RUN ./run ./node_modules/.bin/cdktf get || true
-
-RUN cd node_modules/cdktf-cli/ && ../../run npm install @types/node@14.17.27
 
 RUN ./run ./node_modules/.bin/cdktf get
