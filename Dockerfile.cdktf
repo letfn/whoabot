@@ -21,4 +21,6 @@ RUN ./run python -m pip install -r requirements.txt
 
 COPY --chown=app:app cdktf/cdktf.json .
 
+RUN echo 1
+
 RUN ./run ./node_modules/.bin/cdktf get
