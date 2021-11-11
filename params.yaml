@@ -4,8 +4,7 @@ version: 0.0.2
 variant: ""
 
 base_dockerfile: Dockerfile.base
-base_upstream_source: "python:3.10.0"
-base_source: "registry.mini.defn.ooo:5000/python_3.10.0"
+base_source: "python:3.10.0"
 base_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 
 app_dockerfile: Dockerfile.app
