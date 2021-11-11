@@ -1,0 +1,29 @@
+repo: https://github.com/letfn/whoabot
+revision: 0.0.2
+version: 0.0.2
+variant: ""
+
+base_dockerfile: Dockerfile.base
+base_upstream_source: "python:3.10.0"
+base_source: "registry.mini.defn.ooo:5000/python_3.10.0"
+base_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
+
+app_dockerfile: Dockerfile.app
+app_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
+app_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
+
+ci_dockerfile: Dockerfile.ci
+ci_source: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
+ci_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:ci"
+
+aws_dockerfile: Dockerfile.aws
+aws_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
+aws_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:aws"
+
+terraform_dockerfile: Dockerfile.terraform
+terraform_source: "registry.mini.defn.ooo:5000/letfn/whoabot:aws"
+terraform_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:terraform"
+
+cdktf_dockerfile: Dockerfile.cdktf
+cdktf_source: "registry.mini.defn.ooo:5000/letfn/whoabot:terraform"
+cdktf_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:cdktf"
