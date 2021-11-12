@@ -48,7 +48,7 @@ _templates: #Template & {"kaniko-build": {
 	}
 
 	inputs: parameters: [
-		for p in [ "repo", "revision", "source", "destination", "dockerfile"] {
+		for p in [ "repo", "version", "source", "destination", "dockerfile"] {
 			name: p
 		},
 		{

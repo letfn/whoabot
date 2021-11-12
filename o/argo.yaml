@@ -141,7 +141,7 @@ spec:
     inputs:
       parameters:
       - name: repo
-      - name: revision
+      - name: version
       - name: source
       - name: destination
       - name: dockerfile
