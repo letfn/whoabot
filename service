@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+function main {
+  set -x
+
+  if [[ ! -r /etc/ssh/ssh_host_rsa_key ]]; then
+    sudo rm -v /etc/ssh/ssh_host_*
+    sudo dpkg-reconfigure openssh-server
+    sudo chown -R app:app /etc/ssh /run
+  fi
+
+  #echo LOGLEVEL DEBUG3 | sudo tee -a /etc/ssh/sshd_config
+
+  exec /usr/sbin/sshd -D -o UseDNS=no -o UsePAM=yes -o PasswordAuthentication=no -o Port=2222 -e
+}
+
+main "$@"
