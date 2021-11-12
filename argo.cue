@@ -8,7 +8,7 @@ let layers = [ "base", "dev", "ci", "aws", "terraform", "cdktf"]
 
 spec: {
 	arguments: parameters: [
-		for p in [ "repo", "revision", "version", "variant"] {
+		for p in [ "repo", "version", "label", "variant"] {
 			name: p
 		},
 		for l in layers for s in ["source", "destination", "dockerfile"] {

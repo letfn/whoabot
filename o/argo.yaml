@@ -6,8 +6,8 @@ spec:
   arguments:
     parameters:
     - name: repo
-    - name: revision
     - name: version
+    - name: label
     - name: variant
     - name: base_source
     - name: base_destination
