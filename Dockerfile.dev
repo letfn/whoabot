@@ -2,5 +2,38 @@ ARG IMAGE
 
 FROM $IMAGE
 
-COPY --chown=app:app etc/.bashrc etc/run .
+ENV DEBIAN_FRONTEND=noninteractive
+ENV container docker
 
+USER root
+WORKDIR /root
+ENV HOME=/root
+
+RUN dpkg-divert --local --rename --add /sbin/udevadm && ln -s /bin/true /sbin/udevadm
+
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends \
+        wget apt-transport-https software-properties-common \
+        openssh-server tzdata locales iputils-ping iproute2 net-tools dnsutils curl wget unzip jq xz-utils \
+        sudo git vim less \
+        build-essential m4 make \
+        libssl-dev zlib1g-dev libbz2-dev libsqlite3-dev libncurses5-dev libncursesw5-dev libffi-dev liblzma-dev libreadline-dev \
+        tmux gnupg libusb-1.0-0 \
+        zbar-tools htop \
+    && rm -f /usr/bin/gs
+
+RUN echo "app ALL=(ALL:ALL) ALL" >> /etc/sudoers
+
+RUN echo GatewayPorts clientspecified >> /etc/ssh/sshd_config
+
+RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
+    && dpkg-reconfigure -f noninteractive tzdata \
+    && locale-gen en_US.UTF-8 \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
+
+USER app
+WORKDIR /app
+ENV HOME=/app
+
+COPY --chown=app:app etc/.bashrc etc/run .
