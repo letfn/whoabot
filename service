@@ -3,10 +3,14 @@
 function main {
   set -x
 
-  rm -fv /etc/ssh/ssh_host_*
-  dpkg-reconfigure openssh-server
+  if [[ ! -f /etc/ssh/ssh_host_ecdsa_key ]]; then
+    rm -fv /etc/ssh/ssh_host_*
+    dpkg-reconfigure openssh-server
+  fi
   
   #chown -R app:app /etc/ssh /run
+
+  mkdir -p /run/sshd
 
   #echo LOGLEVEL DEBUG3 | sudo tee -a /etc/ssh/sshd_config
 
