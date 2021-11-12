@@ -32,9 +32,9 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 
 RUN install -d -m 0755 -o app -g app /app/.ssh
 
-COPY --chmod=0755 service /service
+COPY service /service
 
-COPY --chown=app:app --chmod=0600 etc/authorized_keys /app/.ssh/authorized_keys
+COPY --chown=app:app etc/authorized_keys /app/.ssh/authorized_keys
 
 ENTRYPOINT [ "/service" ]
 CMD [ "sshd" ]
