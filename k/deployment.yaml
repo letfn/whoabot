@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hanbaiki-dev
+  labels:
+    app: hanbaiki-dev
+spec:
+  selector:
+    matchLabels:
+      app: hanbaiki-dev
+  template:
+    metadata:
+      labels:
+        app: hanbaiki-dev
+    spec:
+      containers:
+        - name: hanbaiki-dev
+          image: registry.mini.defn.ooo:5000/letfn/whoabot:dev-0.0.4
+          ports:
+            - name: hanbaiki-dev
+              containerPort: 22
