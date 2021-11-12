@@ -3,3 +3,4 @@ public
 cutout
 .drone.env
 venv
+etc/authorized_keys
