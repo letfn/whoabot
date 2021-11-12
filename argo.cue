@@ -4,7 +4,7 @@ apiVersion: "argoproj.io/v1alpha1"
 kind:       "Workflow"
 metadata: generateName: "katt-kaniko-build-"
 
-let layers = [ "base", "ci", "aws", "terraform", "cdktf"]
+let layers = [ "base", "dev", "ci", "aws", "terraform", "cdktf"]
 
 spec: {
 	arguments: parameters: [

@@ -1,0 +1,6 @@
+ARG IMAGE
+
+FROM $IMAGE
+
+COPY --chown=app:app etc/.bashrc etc/run .
+

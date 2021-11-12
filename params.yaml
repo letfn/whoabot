@@ -7,6 +7,10 @@ base_dockerfile: Dockerfile.base
 base_source: "python:3.10.0"
 base_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 
+dev_dockerfile: Dockerfile.dev
+dev_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
+dev_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:dev"
+
 ci_dockerfile: Dockerfile.ci
 ci_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 ci_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:ci"

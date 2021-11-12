@@ -12,6 +12,9 @@ spec:
     - name: base_source
     - name: base_destination
     - name: base_dockerfile
+    - name: dev_source
+    - name: dev_destination
+    - name: dev_dockerfile
     - name: ci_source
     - name: ci_destination
     - name: ci_dockerfile
@@ -41,6 +44,22 @@ spec:
             value: '{{workflow.parameters.base_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
           - name: dockerfile
             value: '{{workflow.parameters.base_dockerfile}}'
+  - name: build-dev
+    steps:
+    - - name: build-dev
+        template: kaniko-build
+        arguments:
+          parameters:
+          - name: repo
+            value: '{{workflow.parameters.repo}}'
+          - name: revision
+            value: '{{workflow.parameters.revision}}'
+          - name: source
+            value: '{{workflow.parameters.dev_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+          - name: destination
+            value: '{{workflow.parameters.dev_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+          - name: dockerfile
+            value: '{{workflow.parameters.dev_dockerfile}}'
   - name: build-ci
     steps:
     - - name: build-ci
