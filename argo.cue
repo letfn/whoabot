@@ -30,6 +30,15 @@ spec: {
 
 spec: securityContext: runAsNonRoot: false
 
+_do_cache: [
+			"--cache",
+			"--cache-copy-layers",
+		]
+
+_no_cache: []
+
+_cache: _no_cache
+
 _templates: #Template & {"kaniko-build": {
 	container: {
 		image: "gcr.io/kaniko-project/executor"
@@ -42,10 +51,7 @@ _templates: #Template & {"kaniko-build": {
 			"--reproducible",
 			"--insecure",
 			"{{inputs.parameters.insecure_pull}}",
-		] + [
-			"--cache",
-			"--cache-copy-layers",
-		]
+		] + _cache
 	}
 
 	inputs: parameters: [
