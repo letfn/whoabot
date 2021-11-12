@@ -1,0 +1,7 @@
+ARG IMAGE
+
+FROM $IMAGE
+
+COPY --chown=app:app etc/.bashrc etc/run .
+
+RUN ./run nodeenv -p -n 16.13.0

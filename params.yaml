@@ -11,6 +11,10 @@ app_dockerfile: Dockerfile.app
 app_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 app_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
 
+node_dockerfile: Dockerfile.node
+node_source: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
+node_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:node"
+
 ci_dockerfile: Dockerfile.ci
 ci_source: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
 ci_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:ci"

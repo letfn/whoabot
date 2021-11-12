@@ -15,6 +15,9 @@ spec:
     - name: app_source
     - name: app_destination
     - name: app_dockerfile
+    - name: node_source
+    - name: node_destination
+    - name: node_dockerfile
     - name: ci_source
     - name: ci_destination
     - name: ci_dockerfile
@@ -60,6 +63,22 @@ spec:
             value: '{{workflow.parameters.app_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
           - name: dockerfile
             value: '{{workflow.parameters.app_dockerfile}}'
+  - name: build-node
+    steps:
+    - - name: build-node
+        template: kaniko-build
+        arguments:
+          parameters:
+          - name: repo
+            value: '{{workflow.parameters.repo}}'
+          - name: revision
+            value: '{{workflow.parameters.revision}}'
+          - name: source
+            value: '{{workflow.parameters.node_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+          - name: destination
+            value: '{{workflow.parameters.node_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+          - name: dockerfile
+            value: '{{workflow.parameters.node_dockerfile}}'
   - name: build-ci
     steps:
     - - name: build-ci
