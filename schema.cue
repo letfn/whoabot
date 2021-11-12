@@ -20,13 +20,13 @@ package katt
 		name:  "source"
 		value: "{{workflow.parameters.\(NAME)_source}}{{workflow.parameters.variant}}\(_source_suffix)"
 
-		_source_suffix: string | *"-{{workflow.parameters.version}}"
+		_source_suffix: string | *"-{{workflow.parameters.label}}"
 		if NAME == "base" {
 			_source_suffix: ""
 		}
 	}, {
 		name:  "destination"
-		value: "{{workflow.parameters.\(NAME)_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}"
+		value: "{{workflow.parameters.\(NAME)_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}"
 	}, {
 		name:  "dockerfile"
 		value: "{{workflow.parameters.\(NAME)_dockerfile}}"

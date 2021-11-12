@@ -41,7 +41,7 @@ spec:
           - name: source
             value: '{{workflow.parameters.base_source}}{{workflow.parameters.variant}}'
           - name: destination
-            value: '{{workflow.parameters.base_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.base_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.base_dockerfile}}'
   - name: build-dev
@@ -55,9 +55,9 @@ spec:
           - name: revision
             value: '{{workflow.parameters.revision}}'
           - name: source
-            value: '{{workflow.parameters.dev_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.dev_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
-            value: '{{workflow.parameters.dev_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.dev_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.dev_dockerfile}}'
   - name: build-ci
@@ -71,9 +71,9 @@ spec:
           - name: revision
             value: '{{workflow.parameters.revision}}'
           - name: source
-            value: '{{workflow.parameters.ci_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.ci_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
-            value: '{{workflow.parameters.ci_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.ci_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.ci_dockerfile}}'
   - name: build-aws
@@ -87,9 +87,9 @@ spec:
           - name: revision
             value: '{{workflow.parameters.revision}}'
           - name: source
-            value: '{{workflow.parameters.aws_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.aws_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
-            value: '{{workflow.parameters.aws_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.aws_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.aws_dockerfile}}'
   - name: build-terraform
@@ -103,9 +103,9 @@ spec:
           - name: revision
             value: '{{workflow.parameters.revision}}'
           - name: source
-            value: '{{workflow.parameters.terraform_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.terraform_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
-            value: '{{workflow.parameters.terraform_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.terraform_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.terraform_dockerfile}}'
   - name: build-cdktf
@@ -119,9 +119,9 @@ spec:
           - name: revision
             value: '{{workflow.parameters.revision}}'
           - name: source
-            value: '{{workflow.parameters.cdktf_source}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.cdktf_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
-            value: '{{workflow.parameters.cdktf_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.version}}'
+            value: '{{workflow.parameters.cdktf_destination}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: dockerfile
             value: '{{workflow.parameters.cdktf_dockerfile}}'
   - name: kaniko-build

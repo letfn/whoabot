@@ -1,6 +1,6 @@
 repo: https://github.com/letfn/whoabot
-revision: 0.0.4
-version: 0.0.4
+revision: master
+label: 0.0.4
 variant: ""
 
 base_dockerfile: Dockerfile.base
