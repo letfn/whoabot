@@ -3,8 +3,8 @@
 function main {
   set -x
 
-  if [[ ! -r /etc/ssh/ssh_host_rsa_key ]]; then
-    rm -v /etc/ssh/ssh_host_*
+  if [[ ! -f /etc/ssh/ssh_host_rsa_key ]]; then
+    rm -fv /etc/ssh/ssh_host_*
     dpkg-reconfigure openssh-server
     #chown -R app:app /etc/ssh /run
   fi
