@@ -40,10 +40,11 @@ _templates: #Template & {"kaniko-build": {
 			"--build-arg",
 			"IMAGE={{inputs.parameters.source}}",
 			"--reproducible",
-			"--cache",
-			"--cache-copy-layers",
 			"--insecure",
 			"{{inputs.parameters.insecure_pull}}",
+		] + [
+			"--cache",
+			"--cache-copy-layers",
 		]
 	}
 
