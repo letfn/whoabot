@@ -35,10 +35,8 @@ RUN apt-get update \
         httpie xdg-utils
 
 RUN install -d -m 0700 -o app -g app /app/.ssh
-RUN install -d -m 0700 -o root -g root /root/.ssh
 
 COPY --chown=app:app etc/authorized_keys /app/.ssh/authorized_keys
-COPY --chown=app:app etc/authorized_keys /root/.ssh/authorized_keys
 
 COPY service /service
 
