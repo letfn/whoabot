@@ -1,22 +1,14 @@
 repo: https://github.com/letfn/whoabot
-revision: 0.0.3
-version: 0.0.3
+revision: 0.0.4
+version: 0.0.4
 variant: ""
 
 base_dockerfile: Dockerfile.base
 base_source: "python:3.10.0"
 base_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 
-app_dockerfile: Dockerfile.app
-app_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
-app_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
-
-node_dockerfile: Dockerfile.node
-node_source: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
-node_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:node"
-
 ci_dockerfile: Dockerfile.ci
-ci_source: "registry.mini.defn.ooo:5000/letfn/whoabot:app"
+ci_source: "registry.mini.defn.ooo:5000/letfn/whoabot:base"
 ci_destination: "registry.mini.defn.ooo:5000/letfn/whoabot:ci"
 
 aws_dockerfile: Dockerfile.aws
