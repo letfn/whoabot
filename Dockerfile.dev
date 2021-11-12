@@ -39,9 +39,3 @@ RUN chmod 755 /service
 
 ENTRYPOINT [ "/service" ]
 CMD [ "sshd" ]
-
-USER app
-WORKDIR /app
-ENV HOME=/app
-
-COPY --chown=app:app etc/.bashrc etc/run .
