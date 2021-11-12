@@ -30,11 +30,17 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
     && locale-gen en_US.UTF-8 \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
-RUN install -d -m 0755 -o app -g app /app/.ssh
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        httpie xdg-utils
 
-COPY service /service
+RUN install -d -m 0700 -o app -g app /app/.ssh
+RUN install -d -m 0700 -o root -g root /root/.ssh
 
 COPY --chown=app:app etc/authorized_keys /app/.ssh/authorized_keys
+COPY --chown=app:app etc/authorized_keys /root/.ssh/authorized_keys
+
+COPY service /service
 
 ENTRYPOINT [ "/service" ]
 CMD [ "sshd" ]
