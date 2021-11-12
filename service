@@ -3,11 +3,9 @@
 function main {
   set -x
 
-  if [[ ! -f /etc/ssh/ssh_host_rsa_key ]]; then
-    rm -fv /etc/ssh/ssh_host_*
-    dpkg-reconfigure openssh-server
-    #chown -R app:app /etc/ssh /run
-  fi
+  # dpkg-reconfigure openssh-server
+  
+  #chown -R app:app /etc/ssh /run
 
   #echo LOGLEVEL DEBUG3 | sudo tee -a /etc/ssh/sshd_config
 

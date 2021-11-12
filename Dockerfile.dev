@@ -34,6 +34,8 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 
 RUN (echo; echo "app ALL=(ALL) NOPASSWD: ALL") | tee -a /etc/sudoer
 
+RUN dpkg-reconfigure openssh-server
+
 COPY service /service
 RUN chmod 755 /service
 
