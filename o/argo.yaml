@@ -136,6 +136,8 @@ spec:
       - --reproducible
       - --insecure
       - '{{inputs.parameters.insecure_pull}}'
+      - --cache
+      - --cache-copy-layers
     inputs:
       parameters:
       - name: repo

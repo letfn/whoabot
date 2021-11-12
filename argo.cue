@@ -30,14 +30,11 @@ spec: {
 
 spec: securityContext: runAsNonRoot: false
 
-_do_cache: [
-			"--cache",
-			"--cache-copy-layers",
-		]
+_do_cache: [ "--cache", "--cache-copy-layers" ]
 
 _no_cache: []
 
-_cache: _no_cache
+_cache: _do_cache
 
 _templates: #Template & {"kaniko-build": {
 	container: {
