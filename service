@@ -3,7 +3,8 @@
 function main {
   set -x
 
-  # dpkg-reconfigure openssh-server
+  rm -fv /etc/ssh/ssh_host_*
+  dpkg-reconfigure openssh-server
   
   #chown -R app:app /etc/ssh /run
 
