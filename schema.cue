@@ -14,8 +14,8 @@ package katt
 		name:  "repo"
 		value: "{{workflow.parameters.repo}}"
 	}, {
-		name:  "revision"
-		value: "{{workflow.parameters.revision}}"
+		name:  "version"
+		value: "{{workflow.parameters.version}}"
 	}, {
 		name:  "source"
 		value: "{{workflow.parameters.\(NAME)_source}}{{workflow.parameters.variant}}\(_source_suffix)"
@@ -44,7 +44,7 @@ package katt
 		path: "/src"
 		git: {
 			repo:     "{{inputs.parameters.repo}}"
-			revision: "{{inputs.parameters.revision}}"
+			revision: "{{inputs.parameters.version}}"
 		}
 	}
 }

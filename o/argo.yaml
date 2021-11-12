@@ -36,8 +36,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.base_source}}{{workflow.parameters.variant}}'
           - name: destination
@@ -52,8 +52,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.dev_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
@@ -68,8 +68,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.ci_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
@@ -84,8 +84,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.aws_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
@@ -100,8 +100,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.terraform_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
@@ -116,8 +116,8 @@ spec:
           parameters:
           - name: repo
             value: '{{workflow.parameters.repo}}'
-          - name: revision
-            value: '{{workflow.parameters.revision}}'
+          - name: version
+            value: '{{workflow.parameters.version}}'
           - name: source
             value: '{{workflow.parameters.cdktf_source}}{{workflow.parameters.variant}}-{{workflow.parameters.label}}'
           - name: destination
@@ -152,6 +152,6 @@ spec:
         path: /src
         git:
           repo: '{{inputs.parameters.repo}}'
-          revision: '{{inputs.parameters.revision}}'
+          revision: '{{inputs.parameters.version}}'
   securityContext:
     runAsNonRoot: false
